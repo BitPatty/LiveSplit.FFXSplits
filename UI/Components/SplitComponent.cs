@@ -34,8 +34,6 @@ namespace LiveSplit.UI.Components
         protected ITimeFormatter TimeFormatter { get; set; }
         protected ITimeFormatter DeltaTimeFormatter { get; set; }
 
-        public Image ShadowImage { get; set; }
-
         public Image SplitCursor = Properties.Resources.cursor;
 
 
@@ -89,70 +87,70 @@ namespace LiveSplit.UI.Components
             if (NeedUpdateAll)
                 UpdateAll(state);
 
-                int splitIndex = state.Run.IndexOf(Split) % 7;
+            int splitIndex = state.Run.IndexOf(Split) % 7;
 
-                if (IsActive)
+            if (IsActive)
+            {
+                switch (splitIndex)
                 {
-                    switch (splitIndex)
-                    {
-                        case 0:
-                            img = Properties.Resources.row_0_s;
-                            break;
-                        case 1:
-                            img = Properties.Resources.row_1_s;
-                            break;
-                        case 2:
-                            img = Properties.Resources.row_2_s;
-                            break;
-                        case 3:
-                            img = Properties.Resources.row_3_s;
-                            break;
-                        case 4:
-                            img = Properties.Resources.row_4_s;
-                            break;
-                        case 5:
-                            img = Properties.Resources.row_5_s;
-                            break;
-                        case 6:
-                            img = Properties.Resources.row_6_s;
-                            break;
-                        default:
-                            img = Properties.Resources.row_0_s;
-                            break;
-                    }
+                    case 0:
+                        img = Properties.Resources.row_0_s;
+                        break;
+                    case 1:
+                        img = Properties.Resources.row_1_s;
+                        break;
+                    case 2:
+                        img = Properties.Resources.row_2_s;
+                        break;
+                    case 3:
+                        img = Properties.Resources.row_3_s;
+                        break;
+                    case 4:
+                        img = Properties.Resources.row_4_s;
+                        break;
+                    case 5:
+                        img = Properties.Resources.row_5_s;
+                        break;
+                    case 6:
+                        img = Properties.Resources.row_6_s;
+                        break;
+                    default:
+                        img = Properties.Resources.row_0_s;
+                        break;
                 }
-                else
+            }
+            else
+            {
+                switch (splitIndex)
                 {
-                    switch (splitIndex)
-                    {
-                        case 0:
-                            img = Properties.Resources.row_0;
-                            break;
-                        case 1:
-                            img = Properties.Resources.row_1;
-                            break;
-                        case 2:
-                            img = Properties.Resources.row_2;
-                            break;
-                        case 3:
-                            img = Properties.Resources.row_3;
-                            break;
-                        case 4:
-                            img = Properties.Resources.row_4;
-                            break;
-                        case 5:
-                            img = Properties.Resources.row_5;
-                            break;
-                        case 6:
-                            img = Properties.Resources.row_6;
-                            break;
-                        default:
-                            img = Properties.Resources.row_0;
-                            break;
-                    }
+                    case 0:
+                        img = Properties.Resources.row_0;
+                        break;
+                    case 1:
+                        img = Properties.Resources.row_1;
+                        break;
+                    case 2:
+                        img = Properties.Resources.row_2;
+                        break;
+                    case 3:
+                        img = Properties.Resources.row_3;
+                        break;
+                    case 4:
+                        img = Properties.Resources.row_4;
+                        break;
+                    case 5:
+                        img = Properties.Resources.row_5;
+                        break;
+                    case 6:
+                        img = Properties.Resources.row_6;
+                        break;
+                    default:
+                        img = Properties.Resources.row_0;
+                        break;
                 }
+            }
 
-                g.DrawImage(img, 0, 0, width, height);
+            g.DrawImage(img, 0, 0, width, height);
 
 
             MeasureTimeLabel.Text = TimeFormatter.Format(new TimeSpan(24, 0, 0));
@@ -223,7 +221,7 @@ namespace LiveSplit.UI.Components
 
                 if (ColumnsList.Count() == LabelsList.Count)
                 {
-                    var curX = width - 7;
+                    var curX = width - 12;
                     var nameX = width - 7;
                     foreach (var label in LabelsList.Reverse())
                     {
@@ -236,12 +234,15 @@ namespace LiveSplit.UI.Components
                             labelWidth = MeasureDeltaLabel.ActualWidth;
                         else
                             labelWidth = MeasureTimeLabel.ActualWidth;
+
                         label.Width = labelWidth + 20;
                         curX -= labelWidth + 5;
                         label.X = curX - 15;
 
                         label.Font = state.LayoutSettings.TimesFont;
                         label.HasShadow = state.LayoutSettings.DropShadows;
+                        label.OutlineColor = state.LayoutSettings.TextOutlineColor;
+
                         label.IsMonospaced = true;
                         label.Draw(g);
 
@@ -249,7 +250,8 @@ namespace LiveSplit.UI.Components
                             nameX = curX + labelWidth + 5 - label.ActualWidth;
 
                     }
-                    NameLabel.Width = (mode == LayoutMode.Horizontal ? width - 10 : nameX); //- IconWidth;
+
+                    NameLabel.Width = (mode == LayoutMode.Horizontal ? width - 10 : width * 0.4f);
                     NameLabel.Draw(g);
                 }
             }

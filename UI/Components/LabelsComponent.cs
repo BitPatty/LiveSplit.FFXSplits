@@ -100,7 +100,7 @@ namespace LiveSplit.UI.Components
 
             if (ColumnsList.Count() == LabelsList.Count)
             {
-                var curX = width - 7;
+                var curX = width - 12;
                 foreach (var label in LabelsList.Reverse())
                 {
                     var column = ColumnsList.ElementAt(LabelsList.IndexOf(label));
