@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -24,6 +23,7 @@ namespace LiveSplit.UI.Components
 
         private int visualSplitCount;
         private int settingsSplitCount;
+        private bool settingsShowTitle;
 
         protected bool PreviousShowLabels { get; set; }
 
@@ -53,10 +53,12 @@ namespace LiveSplit.UI.Components
             InternalComponent = new ComponentRendererComponent();
             visualSplitCount = Settings.VisualSplitCount;
             settingsSplitCount = Settings.VisualSplitCount;
+            settingsShowTitle = Settings.ShowTitle;
             Settings.SplitLayoutChanged += Settings_SplitLayoutChanged;
             ScrollOffset = 0;
             RebuildVisualSplits();
             state.ComparisonRenamed += state_ComparisonRenamed;
+
         }
 
         void state_ComparisonRenamed(object sender, EventArgs e)
@@ -84,6 +86,9 @@ namespace LiveSplit.UI.Components
             InternalComponent.VisibleComponents = Components;
 
             var totalSplits = Settings.ShowBlankSplits ? Math.Max(Settings.VisualSplitCount, visualSplitCount) : visualSplitCount;
+
+            if (Settings.ShowTitle)
+                Components.Add(new TitleComponent(Settings));
 
             if (Settings.ShowColumnLabels && CurrentState.Layout.Mode == LayoutMode.Vertical)
             {
@@ -131,13 +136,16 @@ namespace LiveSplit.UI.Components
             if (previousSplitCount != visualSplitCount
                 || (Settings.ShowBlankSplits && settingsSplitCount != Settings.VisualSplitCount)
                 || Settings.ShowColumnLabels != PreviousShowLabels
-                || (Settings.ShowColumnLabels && state.Layout.Mode != OldLayoutMode))
+                || (Settings.ShowColumnLabels && state.Layout.Mode != OldLayoutMode)
+                || (Settings.ShowTitle != settingsShowTitle))
             {
                 PreviousShowLabels = Settings.ShowColumnLabels;
                 OldLayoutMode = state.Layout.Mode;
                 RebuildVisualSplits();
             }
+
             settingsSplitCount = Settings.VisualSplitCount;
+            settingsShowTitle = Settings.ShowTitle;
 
             var skipCount = Math.Min(
                 Math.Max(

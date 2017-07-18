@@ -89,6 +89,7 @@
     <Compile Include="UI\Components\ColumnSettings.Designer.cs">
       <DependentUpon>ColumnSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Components\TitleComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -203,6 +204,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="img\row_style_0_normalized_no_borders_active - Kopie\row_5_s.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\row_single_title.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

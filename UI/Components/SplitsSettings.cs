@@ -35,6 +35,19 @@ namespace LiveSplit.UI.Components
         public LiveSplitState CurrentState { get; set; }
 
 
+        public bool ShowTitle { get; set; }
+        public bool ShowGameName { get; set; }
+        public bool ShowCategoryName { get; set; }
+        public bool ShowFinishedRunsCount { get; set; }
+        public bool ShowAttemptCount { get; set; }
+        public bool DisplayGameIcon { get; set; }
+        public bool CenterTitle { get; set; }
+        public bool ShowRegion { get; set; }
+        public bool ShowPlatform { get; set; }
+        public bool ShowVariables { get; set; }
+        public bool ShowCount => ShowAttemptCount || ShowFinishedRunsCount;
+
+
         public bool ShowThinSeparators { get; set; }
         public bool AlwaysShowLastSplit { get; set; }
         public bool ShowBlankSplits { get; set; }
@@ -130,10 +143,36 @@ namespace LiveSplit.UI.Components
             btnLabelColor.DataBindings.Add("BackColor", this, "LabelsColor", false, DataSourceUpdateMode.OnPropertyChanged);
             txtSplitsLabel.DataBindings.Add("Text", this, "SplitsLabel", false, DataSourceUpdateMode.OnPropertyChanged);
 
+            //Title
+            chkShowTitle.DataBindings.Add("Checked", this, "ShowTitle", false, DataSourceUpdateMode.OnPropertyChanged);
+            chkShowGameName.DataBindings.Add("Checked", this, "ShowGameName", false, DataSourceUpdateMode.OnPropertyChanged);
+            chkShowCategoryName.DataBindings.Add("Checked", this, "ShowCategoryName", false, DataSourceUpdateMode.OnPropertyChanged);
+            chkShowFinishedRunsCount.DataBindings.Add("Checked", this, "ShowFinishedRunsCount", false, DataSourceUpdateMode.OnPropertyChanged);
+            chkShowAttemptCount.DataBindings.Add("Checked", this, "ShowAttemptCount", false, DataSourceUpdateMode.OnPropertyChanged);
+            chkDisplayGameIcon.DataBindings.Add("Checked", this, "DisplayGameIcon", false, DataSourceUpdateMode.OnPropertyChanged);
+            chkCenterText.DataBindings.Add("Checked", this, "CenterTitle", false, DataSourceUpdateMode.OnPropertyChanged);
+            chkShowRegion.DataBindings.Add("Checked", this, "ShowRegion", false, DataSourceUpdateMode.OnPropertyChanged);
+            chkShowPlatform.DataBindings.Add("Checked", this, "ShowPlatform", false, DataSourceUpdateMode.OnPropertyChanged);
+            chkShowVariables.DataBindings.Add("Checked", this, "ShowVariables", false, DataSourceUpdateMode.OnPropertyChanged);
+
             ColumnsList = new List<ColumnSettings>();
             ColumnsList.Add(new ColumnSettings(CurrentState, "+/-", ColumnsList) { Data = new ColumnData("+/-", ColumnType.Delta, "Current Comparison", "Current Timing Method") });
             ColumnsList.Add(new ColumnSettings(CurrentState, "Time", ColumnsList) { Data = new ColumnData("Time", ColumnType.SplitTime, "Current Comparison", "Current Timing Method") });
         }
+
+        void chkShowTitle_CheckedChanged(object sender, EventArgs e)
+        {
+            chkShowGameName.Enabled =
+            chkShowCategoryName.Enabled =
+            chkShowFinishedRunsCount.Enabled =
+            chkShowAttemptCount.Enabled =
+            chkDisplayGameIcon.Enabled =
+            chkCenterText.Enabled =
+            chkShowRegion.Enabled =
+            chkShowPlatform.Enabled =
+            chkShowVariables.Enabled = chkShowTitle.Checked;
+        }
+
 
         void chkColumnLabels_CheckedChanged(object sender, EventArgs e)
         {
@@ -230,6 +269,8 @@ namespace LiveSplit.UI.Components
 
         void SplitsSettings_Load(object sender, EventArgs e)
         {
+            chkShowTitle_CheckedChanged(null, null);
+
             ResetColumns();
 
             chkOverrideDeltaColor_CheckedChanged(null, null);
@@ -306,6 +347,18 @@ namespace LiveSplit.UI.Components
             LockLastSplit = SettingsHelper.ParseBool(element["LockLastSplit"], false);
             SplitsLabel = SettingsHelper.ParseString(element["SplitsLabel"], "Splits");
 
+            //Title
+            ShowTitle = SettingsHelper.ParseBool(element["ShowTitle"], false);
+            ShowGameName = SettingsHelper.ParseBool(element["ShowGameName"], false);
+            ShowCategoryName = SettingsHelper.ParseBool(element["ShowCategoryName"], false);
+            ShowFinishedRunsCount = SettingsHelper.ParseBool(element["ShowFinishedRunsCount"], false);
+            ShowAttemptCount = SettingsHelper.ParseBool(element["ShowAttemptCount"], false);
+            DisplayGameIcon = SettingsHelper.ParseBool(element["DisplayGameIcon"], false);
+            CenterTitle = SettingsHelper.ParseBool(element["CenterTitle"], false);
+            ShowRegion = SettingsHelper.ParseBool(element["ShowRegion"], false);
+            ShowPlatform = SettingsHelper.ParseBool(element["ShowPlatform"], false);
+            ShowVariables = SettingsHelper.ParseBool(element["ShowVariables"], false);
+
             if (version >= new Version(1, 5))
             {
                 var columnsElement = element["Columns"];
@@ -322,8 +375,8 @@ namespace LiveSplit.UI.Components
                 var comparison = SettingsHelper.ParseString(element["Comparison"]);
                 if (SettingsHelper.ParseBool(element["ShowSplitTimes"]))
                 {
-                    ColumnsList.Add(new ColumnSettings(CurrentState, "+/-", ColumnsList) { Data = new ColumnData("+/-", ColumnType.Delta, comparison, "Current Timing Method")});
-                    ColumnsList.Add(new ColumnSettings(CurrentState, "Time", ColumnsList) { Data = new ColumnData("Time", ColumnType.SplitTime, comparison, "Current Timing Method")});
+                    ColumnsList.Add(new ColumnSettings(CurrentState, "+/-", ColumnsList) { Data = new ColumnData("+/-", ColumnType.Delta, comparison, "Current Timing Method") });
+                    ColumnsList.Add(new ColumnSettings(CurrentState, "Time", ColumnsList) { Data = new ColumnData("Time", ColumnType.SplitTime, comparison, "Current Timing Method") });
                 }
                 else
                 {
@@ -392,7 +445,17 @@ namespace LiveSplit.UI.Components
             SettingsHelper.CreateSetting(document, parent, "Display2Rows", Display2Rows) ^
             SettingsHelper.CreateSetting(document, parent, "ShowColumnLabels", ShowColumnLabels) ^
             SettingsHelper.CreateSetting(document, parent, "LabelsColor", LabelsColor) ^
-            SettingsHelper.CreateSetting(document, parent, "SplitsLabel", SplitsLabel);
+            SettingsHelper.CreateSetting(document, parent, "SplitsLabel", SplitsLabel) ^
+            SettingsHelper.CreateSetting(document, parent, "ShowTitle", ShowTitle) ^
+            SettingsHelper.CreateSetting(document, parent, "ShowGameName", ShowGameName) ^
+            SettingsHelper.CreateSetting(document, parent, "ShowCategoryName", ShowCategoryName) ^
+            SettingsHelper.CreateSetting(document, parent, "ShowFinishedRunsCount", ShowFinishedRunsCount) ^
+            SettingsHelper.CreateSetting(document, parent, "ShowAttemptCount", ShowAttemptCount) ^
+            SettingsHelper.CreateSetting(document, parent, "DisplayGameIcon", DisplayGameIcon) ^
+            SettingsHelper.CreateSetting(document, parent, "CenterTitle", CenterTitle) ^
+            SettingsHelper.CreateSetting(document, parent, "ShowRegion", ShowRegion) ^
+            SettingsHelper.CreateSetting(document, parent, "ShowPlatform", ShowPlatform) ^
+            SettingsHelper.CreateSetting(document, parent, "ShowVariables", ShowVariables);
 
             XmlElement columnsElement = null;
             if (document != null)

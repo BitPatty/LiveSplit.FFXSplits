@@ -8,9 +8,10 @@ The current split shows the menu cursor from the game in front of the split name
 
 ## Preview
 
-v0.0.1:
+v0.0.2:
 
-![ffxsplits](https://user-images.githubusercontent.com/11077852/28251003-abfb568a-6a74-11e7-93c9-65204fd7089a.png)
+![ffxsplits0 0 2](https://user-images.githubusercontent.com/11077852/28311696-c1a4a54e-6bb0-11e7-87bd-7879c340f1b1.png)
+
 
 
 
