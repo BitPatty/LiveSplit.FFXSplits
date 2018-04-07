@@ -1,12 +1,14 @@
 ﻿using LiveSplit.Model;
 using LiveSplit.TimeFormatters;
+using LiveSplit.UI;
+using LiveSplit.UI.Components;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace LiveSplit.UI.Components
+namespace LiveSplit.FFXSplits
 {
     public class LabelsComponent : IComponent
     {
@@ -154,7 +156,6 @@ namespace LiveSplit.UI.Components
         {
             throw new NotSupportedException();
         }
-
 
         public System.Xml.XmlNode GetSettings(System.Xml.XmlDocument document)
         {

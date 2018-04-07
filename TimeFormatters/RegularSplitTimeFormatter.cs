@@ -2,7 +2,7 @@
 
 namespace LiveSplit.TimeFormatters
 {
-    class RegularSplitTimeFormatter : ITimeFormatter
+    internal class RegularSplitTimeFormatter : ITimeFormatter
     {
         public TimeAccuracy Accuracy { get; set; }
 
@@ -10,6 +10,7 @@ namespace LiveSplit.TimeFormatters
         {
             Accuracy = accuracy;
         }
+
         public string Format(TimeSpan? time)
         {
             var formatter = new RegularTimeFormatter(Accuracy);

@@ -1,4 +1,6 @@
 ﻿using LiveSplit.Model;
+using LiveSplit.UI;
+using LiveSplit.UI.Components;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,7 +9,9 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace LiveSplit.UI.Components
+#pragma warning disable IDE1006
+
+namespace LiveSplit.FFXSplits
 {
     public class TitleComponent : IComponent
     {
@@ -55,7 +59,6 @@ namespace LiveSplit.UI.Components
 
             TitleFont = state.LayoutSettings.TextFont;
 
-
             MinimumHeight = g.MeasureString("A", TitleFont).Height * 1.7f;
             VerticalHeight = g.MeasureString("A", TitleFont).Height * 1.7f;
             var showGameIcon = state.Run.GameIcon != null && Settings.DisplayGameIcon;
@@ -65,9 +68,7 @@ namespace LiveSplit.UI.Components
             }
 
             DrawAttemptCount(g, state, width, height);
-
-            float startPadding, titleEndPadding, categoryEndPadding;
-            CalculatePadding(height, mode, showGameIcon, out startPadding, out titleEndPadding, out categoryEndPadding);
+            CalculatePadding(height, mode, showGameIcon, out float startPadding, out float titleEndPadding, out float categoryEndPadding);
 
             DrawGameName(g, state, width, height, showGameIcon, startPadding, titleEndPadding);
             DrawCategoryName(g, state, width, height, showGameIcon, startPadding, categoryEndPadding);
@@ -203,8 +204,8 @@ namespace LiveSplit.UI.Components
 
             g.DrawImage(
                 icon,
-                7 + (height - 4 - drawWidth) / 2,
-                2 + (height - 4 - drawHeight) / 2,
+                7 + ((height - 4 - drawWidth) / 2),
+                2 + ((height - 4 - drawHeight) / 2),
                 drawWidth,
                 drawHeight);
         }
@@ -324,7 +325,6 @@ namespace LiveSplit.UI.Components
             Cache["ShowGameName"] = Settings.ShowGameName;
             Cache["ShowCategoryName"] = Settings.ShowCategoryName;
 
-
             if (Cache.HasChanged)
             {
                 if (Settings.ShowGameName && Settings.ShowCategoryName)
@@ -363,7 +363,6 @@ namespace LiveSplit.UI.Components
                         CategoryNameLabel.AlternateText = new List<string>();
                     }
                 }
-
             }
 
             Cache.Restart();
@@ -372,14 +371,12 @@ namespace LiveSplit.UI.Components
             if (Cache.HasChanged)
                 FinishedRunsCount = state.Run.AttemptHistory.Where(x => x.Time.RealTime != null).Count();
 
-
             if (Settings.ShowAttemptCount && Settings.ShowFinishedRunsCount)
                 AttemptCountLabel.Text = string.Format("{0}/{1}", FinishedRunsCount, state.Run.AttemptCount);
             else if (Settings.ShowAttemptCount)
                 AttemptCountLabel.Text = state.Run.AttemptCount.ToString();
             else if (Settings.ShowFinishedRunsCount)
                 AttemptCountLabel.Text = FinishedRunsCount.ToString();
-
 
             Cache.Restart();
             Cache["GameIcon"] = state.Run.GameIcon;

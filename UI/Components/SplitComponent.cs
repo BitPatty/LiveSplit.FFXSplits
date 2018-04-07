@@ -1,5 +1,7 @@
 ﻿using LiveSplit.Model;
 using LiveSplit.TimeFormatters;
+using LiveSplit.UI;
+using LiveSplit.UI.Components;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,7 +9,9 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace LiveSplit.UI.Components
+#pragma warning disable IDE1006
+
+namespace LiveSplit.FFXSplits
 {
     public class SplitComponent : IComponent
     {
@@ -32,7 +36,6 @@ namespace LiveSplit.UI.Components
         protected ITimeFormatter DeltaTimeFormatter { get; set; }
 
         public Image SplitCursor = Properties.Resources.cursor;
-
 
         public float PaddingTop => 0f;
         public float PaddingLeft => 0f;
@@ -149,7 +152,6 @@ namespace LiveSplit.UI.Components
 
             g.DrawImage(img, 0, 0, width, height);
 
-
             MeasureTimeLabel.Text = TimeFormatter.Format(new TimeSpan(24, 0, 0));
             MeasureDeltaLabel.Text = DeltaTimeFormatter.Format(new TimeSpan(0, 9, 0, 0));
 
@@ -183,7 +185,6 @@ namespace LiveSplit.UI.Components
 
             if (Split != null)
             {
-
                 if (mode == LayoutMode.Vertical)
                 {
                     NameLabel.VerticalAlignment = StringAlignment.Center;
@@ -245,7 +246,6 @@ namespace LiveSplit.UI.Components
 
                         if (!string.IsNullOrEmpty(label.Text))
                             nameX = curX + labelWidth + 5 - label.ActualWidth;
-
                     }
 
                     NameLabel.Width = (mode == LayoutMode.Horizontal ? width - 10 : width * 0.4f);
@@ -258,7 +258,7 @@ namespace LiveSplit.UI.Components
         {
             if (Settings.Display2Rows)
             {
-                VerticalHeight = Settings.SplitHeight + 0.85f * (g.MeasureString("A", state.LayoutSettings.TimesFont).Height + g.MeasureString("A", state.LayoutSettings.TextFont).Height);
+                VerticalHeight = Settings.SplitHeight + (0.85f * (g.MeasureString("A", state.LayoutSettings.TimesFont).Height + g.MeasureString("A", state.LayoutSettings.TextFont).Height));
                 DrawGeneral(g, state, width, VerticalHeight, LayoutMode.Horizontal);
             }
             else
@@ -276,7 +276,6 @@ namespace LiveSplit.UI.Components
 
         public string ComponentName => "Split";
 
-
         public Control GetSettingsControl(LayoutMode mode)
         {
             throw new NotSupportedException();
@@ -286,7 +285,6 @@ namespace LiveSplit.UI.Components
         {
             throw new NotSupportedException();
         }
-
 
         public System.Xml.XmlNode GetSettings(System.Xml.XmlDocument document)
         {
@@ -324,7 +322,7 @@ namespace LiveSplit.UI.Components
                     if (NameLabel.Text != Split.Name || NameLabel.AlternateText == null || !NameLabel.AlternateText.Any())
                         NameLabel.AlternateText = Split.Name.GetAbbreviations().ToList();
                 }
-                else if (NameLabel.AlternateText != null && NameLabel.AlternateText.Any())
+                else if (NameLabel.AlternateText?.Any() == true)
                     NameLabel.AlternateText.Clear();
 
                 NameLabel.Text = Split.Name;
@@ -397,11 +395,9 @@ namespace LiveSplit.UI.Components
                         else
                             label.Text = TimeFormatter.Format(Split.SplitTime[timingMethod]);
                     }
-
                     else if (type == ColumnType.Delta)
                         label.Text = DeltaTimeFormatter.Format(deltaTime);
                 }
-
                 else if (type == ColumnType.SegmentDeltaorSegmentTime || type == ColumnType.SegmentDelta)
                 {
                     var segmentDelta = LiveSplitStateHelper.GetPreviousSegmentDelta(state, splitIndex, comparison, timingMethod);
@@ -483,9 +479,9 @@ namespace LiveSplit.UI.Components
                 var mixedCount = ColumnsList.Count(x => x.Type == ColumnType.DeltaorSplitTime || x.Type == ColumnType.SegmentDeltaorSegmentTime);
                 var deltaCount = ColumnsList.Count(x => x.Type == ColumnType.Delta || x.Type == ColumnType.SegmentDelta);
                 var timeCount = ColumnsList.Count(x => x.Type == ColumnType.SplitTime || x.Type == ColumnType.SegmentTime);
-                return mixedCount * (Math.Max(MeasureDeltaLabel.ActualWidth, MeasureTimeLabel.ActualWidth) + 5)
-                    + deltaCount * (MeasureDeltaLabel.ActualWidth + 5)
-                    + timeCount * (MeasureTimeLabel.ActualWidth + 5);
+                return (mixedCount * (Math.Max(MeasureDeltaLabel.ActualWidth, MeasureTimeLabel.ActualWidth) + 5))
+                    + (deltaCount * (MeasureDeltaLabel.ActualWidth + 5))
+                    + (timeCount * (MeasureTimeLabel.ActualWidth + 5));
             }
             return 0f;
         }
@@ -512,9 +508,7 @@ namespace LiveSplit.UI.Components
                 UpdateAll(state);
                 NeedUpdateAll = false;
 
-                IsActive = (state.CurrentPhase == TimerPhase.Running
-                            || state.CurrentPhase == TimerPhase.Paused) &&
-                                                    state.CurrentSplit == Split;
+                IsActive = (state.CurrentPhase == TimerPhase.Running || state.CurrentPhase == TimerPhase.Paused) && state.CurrentSplit == Split;
 
                 Cache.Restart();
                 Cache["Icon"] = Split.Icon;

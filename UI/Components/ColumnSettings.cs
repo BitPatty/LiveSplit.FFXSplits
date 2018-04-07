@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
+#pragma warning disable IDE1006
+
 namespace LiveSplit.UI.Components
 {
     public partial class ColumnSettings : UserControl
@@ -19,6 +21,7 @@ namespace LiveSplit.UI.Components
                 UpdateComparisonItems();
             }
         }
+
         public string Comparison { get { return Data.Comparison; } set { Data.Comparison = value; } }
         public string TimingMethod { get { return Data.TimingMethod; } set { Data.TimingMethod = value; } }
 
@@ -40,25 +43,25 @@ namespace LiveSplit.UI.Components
             Data = new ColumnData(columnName, ColumnType.Delta, "Current Comparison", "Current Timing Method");
 
             CurrentState = state;
-            ColumnsList = columnsList; 
+            ColumnsList = columnsList;
         }
 
-        void cmbTimingMethod_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbTimingMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
             TimingMethod = cmbTimingMethod.SelectedItem.ToString();
         }
 
-        void cmbComparison_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbComparison_SelectedIndexChanged(object sender, EventArgs e)
         {
             Comparison = cmbComparison.SelectedItem.ToString();
         }
 
-        void cmbColumnType_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbColumnType_SelectedIndexChanged(object sender, EventArgs e)
         {
             Type = cmbColumnType.SelectedItem.ToString();
         }
 
-        void ColumnSettings_Load(object sender, EventArgs e)
+        private void ColumnSettings_Load(object sender, EventArgs e)
         {
             UpdateComparisonItems();
 
@@ -76,7 +79,7 @@ namespace LiveSplit.UI.Components
             btnMoveUp.Enabled = ColumnIndex > 0;
         }
 
-        void txtName_TextChanged(object sender, EventArgs e)
+        private void txtName_TextChanged(object sender, EventArgs e)
         {
             groupColumn.Text = $"Column: { txtName.Text }";
         }

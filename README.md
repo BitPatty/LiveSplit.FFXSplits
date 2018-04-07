@@ -1,16 +1,24 @@
-# LiveSplit.FFXSplits
-A work in progress LiveSplit component for displaying FFX themed Splits. This plugin is heavily based off [Livesplit.Splits](https://github.com/LiveSplit/LiveSplit.Splits).
+## LiveSplit.FFXSplits
 
-## Features
+![FFXSplits 1.0](https://github.com/BitPatty/LiveSplit.FFXSplits/raw/master/img/preview.png)
 
-Displays a FFX themed split list, using textures from the game. 
-The current split shows the menu cursor from the game in front of the split name.
+### About
 
-## Preview
+LiveSplit.FFXSplits is a LiveSplit component for displaying FFX themed Splits. This plugin is heavily based off [Livesplit.Splits](https://github.com/LiveSplit/LiveSplit.Splits).
 
-v0.0.2:
 
-![ffxsplits0 0 2](https://user-images.githubusercontent.com/11077852/28311696-c1a4a54e-6bb0-11e7-87bd-7879c340f1b1.png)
+#### Features
+
+* Theme uses assets extracted from the Final Fantasy X HD-Remaster (PC)
+* Split background design spans over multiple rows, current split highlight design adjusts to the background of the currently active split.
+* Cursor from the games HUD follows the currently active split.
+* FFX themed title and split labels.
+* Slightly modified the split labels to allow labeling the split names.
+
+
+#### Installation
+
+Copy the ```LivesSplit.FFXSplits.dll``` into the 'Components' folder in your LiveSplit directory and then add it via the Layout Editor. (List -> Splits (FFX Theme)).
 
 
 

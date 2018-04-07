@@ -1,7 +1,8 @@
 ﻿using LiveSplit.Model;
+using LiveSplit.UI.Components;
 using System;
 
-namespace LiveSplit.UI.Components
+namespace LiveSplit.FFXSplits
 {
     public class SplitsComponentFactory : IComponentFactory
     {

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Xml;
 
+#pragma warning disable RCS1029
+
 namespace LiveSplit.UI
 {
     public class ColumnData

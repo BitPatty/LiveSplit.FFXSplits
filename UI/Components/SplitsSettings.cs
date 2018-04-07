@@ -7,6 +7,9 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 
+#pragma warning disable RCS1029
+#pragma warning disable IDE1006
+
 namespace LiveSplit.UI.Components
 {
     public partial class SplitsSettings : UserControl
@@ -34,7 +37,6 @@ namespace LiveSplit.UI.Components
 
         public LiveSplitState CurrentState { get; set; }
 
-
         public bool ShowTitle { get; set; }
         public bool ShowGameName { get; set; }
         public bool ShowCategoryName { get; set; }
@@ -46,7 +48,6 @@ namespace LiveSplit.UI.Components
         public bool ShowPlatform { get; set; }
         public bool ShowVariables { get; set; }
         public bool ShowCount => ShowAttemptCount || ShowFinishedRunsCount;
-
 
         public bool ShowThinSeparators { get; set; }
         public bool AlwaysShowLastSplit { get; set; }
@@ -160,7 +161,7 @@ namespace LiveSplit.UI.Components
             ColumnsList.Add(new ColumnSettings(CurrentState, "Time", ColumnsList) { Data = new ColumnData("Time", ColumnType.SplitTime, "Current Comparison", "Current Timing Method") });
         }
 
-        void chkShowTitle_CheckedChanged(object sender, EventArgs e)
+        private void chkShowTitle_CheckedChanged(object sender, EventArgs e)
         {
             chkShowGameName.Enabled =
             chkShowCategoryName.Enabled =
@@ -173,68 +174,67 @@ namespace LiveSplit.UI.Components
             chkShowVariables.Enabled = chkShowTitle.Checked;
         }
 
-
-        void chkColumnLabels_CheckedChanged(object sender, EventArgs e)
+        private void chkColumnLabels_CheckedChanged(object sender, EventArgs e)
         {
             btnLabelColor.Enabled = lblLabelsColor.Enabled = chkColumnLabels.Checked;
         }
 
-        void chkOverrideTimesColor_CheckedChanged(object sender, EventArgs e)
+        private void chkOverrideTimesColor_CheckedChanged(object sender, EventArgs e)
         {
             label6.Enabled = label9.Enabled = label7.Enabled = btnBeforeTimesColor.Enabled
                 = btnCurrentTimesColor.Enabled = btnAfterTimesColor.Enabled = chkOverrideTimesColor.Checked;
         }
 
-        void chkOverrideDeltaColor_CheckedChanged(object sender, EventArgs e)
+        private void chkOverrideDeltaColor_CheckedChanged(object sender, EventArgs e)
         {
             label8.Enabled = btnDeltaColor.Enabled = chkOverrideDeltaColor.Checked;
         }
 
-        void chkOverrideTextColor_CheckedChanged(object sender, EventArgs e)
+        private void chkOverrideTextColor_CheckedChanged(object sender, EventArgs e)
         {
             label3.Enabled = label10.Enabled = label13.Enabled = btnBeforeNamesColor.Enabled
             = btnCurrentNamesColor.Enabled = btnAfterNamesColor.Enabled = chkOverrideTextColor.Checked;
         }
 
-        void rdoDeltaTenths_CheckedChanged(object sender, EventArgs e)
+        private void rdoDeltaTenths_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDeltaAccuracy();
         }
 
-        void rdoDeltaSeconds_CheckedChanged(object sender, EventArgs e)
+        private void rdoDeltaSeconds_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDeltaAccuracy();
         }
 
-        void chkSeparatorLastSplit_CheckedChanged(object sender, EventArgs e)
+        private void chkSeparatorLastSplit_CheckedChanged(object sender, EventArgs e)
         {
             SeparatorLastSplit = chkSeparatorLastSplit.Checked;
             SplitLayoutChanged(this, null);
         }
 
-        void chkLockLastSplit_CheckedChanged(object sender, EventArgs e)
+        private void chkLockLastSplit_CheckedChanged(object sender, EventArgs e)
         {
             LockLastSplit = chkLockLastSplit.Checked;
             SplitLayoutChanged(this, null);
         }
 
-        void chkShowBlankSplits_CheckedChanged(object sender, EventArgs e)
+        private void chkShowBlankSplits_CheckedChanged(object sender, EventArgs e)
         {
             ShowBlankSplits = chkLockLastSplit.Enabled = chkShowBlankSplits.Checked;
             SplitLayoutChanged(this, null);
         }
 
-        void rdoTenths_CheckedChanged(object sender, EventArgs e)
+        private void rdoTenths_CheckedChanged(object sender, EventArgs e)
         {
             UpdateAccuracy();
         }
 
-        void rdoSeconds_CheckedChanged(object sender, EventArgs e)
+        private void rdoSeconds_CheckedChanged(object sender, EventArgs e)
         {
             UpdateAccuracy();
         }
 
-        void UpdateAccuracy()
+        private void UpdateAccuracy()
         {
             if (rdoSeconds.Checked)
                 SplitTimesAccuracy = TimeAccuracy.Seconds;
@@ -244,7 +244,7 @@ namespace LiveSplit.UI.Components
                 SplitTimesAccuracy = TimeAccuracy.Hundredths;
         }
 
-        void UpdateDeltaAccuracy()
+        private void UpdateDeltaAccuracy()
         {
             if (rdoDeltaSeconds.Checked)
                 DeltasAccuracy = TimeAccuracy.Seconds;
@@ -254,20 +254,20 @@ namespace LiveSplit.UI.Components
                 DeltasAccuracy = TimeAccuracy.Hundredths;
         }
 
-        void chkLastSplit_CheckedChanged(object sender, EventArgs e)
+        private void chkLastSplit_CheckedChanged(object sender, EventArgs e)
         {
             AlwaysShowLastSplit = chkLastSplit.Checked;
             VisualSplitCount = VisualSplitCount;
             SplitLayoutChanged(this, null);
         }
 
-        void chkThinSeparators_CheckedChanged(object sender, EventArgs e)
+        private void chkThinSeparators_CheckedChanged(object sender, EventArgs e)
         {
             ShowThinSeparators = chkThinSeparators.Checked;
             SplitLayoutChanged(this, null);
         }
 
-        void SplitsSettings_Load(object sender, EventArgs e)
+        private void SplitsSettings_Load(object sender, EventArgs e)
         {
             chkShowTitle_CheckedChanged(null, null);
 
@@ -510,7 +510,7 @@ namespace LiveSplit.UI.Components
             column.MovedDown += column_MovedDown;
         }
 
-        void column_MovedDown(object sender, EventArgs e)
+        private void column_MovedDown(object sender, EventArgs e)
         {
             var column = (ColumnSettings)sender;
             var index = ColumnsList.IndexOf(column);
@@ -520,7 +520,7 @@ namespace LiveSplit.UI.Components
             column.SelectControl();
         }
 
-        void column_MovedUp(object sender, EventArgs e)
+        private void column_MovedUp(object sender, EventArgs e)
         {
             var column = (ColumnSettings)sender;
             var index = ColumnsList.IndexOf(column);
@@ -530,7 +530,7 @@ namespace LiveSplit.UI.Components
             column.SelectControl();
         }
 
-        void column_ColumnRemoved(object sender, EventArgs e)
+        private void column_ColumnRemoved(object sender, EventArgs e)
         {
             var column = (ColumnSettings)sender;
             var index = ColumnsList.IndexOf(column);
@@ -576,6 +576,5 @@ namespace LiveSplit.UI.Components
             foreach (var column in ColumnsList)
                 column.UpdateEnabledButtons();
         }
-
     }
 }

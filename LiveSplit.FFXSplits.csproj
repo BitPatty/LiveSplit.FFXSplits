@@ -7,9 +7,9 @@
     <ProjectGuid>{AB6EEF2E-FAEE-435B-A0AA-6118CA076BBB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LiveSplit</RootNamespace>
+    <RootNamespace>LiveSplit.FFXSplits</RootNamespace>
     <AssemblyName>LiveSplit.FFXSplits</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>Svn</SccProjectName>
     <SccLocalPath>Svn</SccLocalPath>
@@ -21,7 +21,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\Components\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -30,7 +30,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\Components\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -38,7 +38,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release Candidate|AnyCPU'">
-    <OutputPath>..\..\bin\Release Candidate\Components\</OutputPath>
+    <OutputPath>bin\Release Candidate\</OutputPath>
     <DefineConstants>TRACE;RELEASE_CANDIDATE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -50,7 +50,7 @@
   <ItemGroup>
     <Reference Include="LiveSplit.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\LiveSplit\LiveSplit\bin\Debug\LiveSplit.Core.dll</HintPath>
+      <HintPath>lib\LiveSplit.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,18 +59,18 @@
     <Reference Include="System.Xml" />
     <Reference Include="UpdateManager, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\LiveSplit\LiveSplit\bin\Debug\UpdateManager.dll</HintPath>
+      <HintPath>lib\UpdateManager.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TimeFormatters\RegularSplitTimeFormatter.cs" />
-    <Compile Include="TimeFormatters\DeltaSplitTimeFormatter.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TimeFormatters\RegularSplitTimeFormatter.cs" />
+    <Compile Include="TimeFormatters\DeltaSplitTimeFormatter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\ColumnData.cs" />
     <Compile Include="UI\ColumnType.cs" />
     <Compile Include="UI\Components\LabelsComponent.cs" />
@@ -94,8 +94,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Components\SplitsSettings.resx">
       <DependentUpon>SplitsSettings.cs</DependentUpon>
@@ -105,109 +105,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders\row_0 - Kopie.psd" />
-    <None Include="Resources\row_0.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0\row_0.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0\row_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0\row_2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0\row_3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0\row_4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0\row_5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0\row_6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_single.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized\row_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized\row_2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized\row_3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized\row_4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized\row_5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized\row_6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized\row_0.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\cursor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\movingcursor.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\info.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders\row_6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders\row_0.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders\row_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders\row_2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders\row_3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders\row_4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders\row_5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders_active - Kopie\row_0_s.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders_active - Kopie\row_6_s.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders_active - Kopie\row_1_s.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders_active - Kopie\row_2_s.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders_active - Kopie\row_3_s.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders_active - Kopie\row_4_s.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_style_0_normalized_no_borders_active - Kopie\row_5_s.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="img\row_single_title.png" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
